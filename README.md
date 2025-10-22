@@ -133,5 +133,5 @@ iface eth0 inet static
         dns-nameserver 192.168.122.1
 ```
 
-
+Konfigurasi GNS
 
