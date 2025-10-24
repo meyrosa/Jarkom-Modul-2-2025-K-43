@@ -160,4 +160,28 @@ ns1             IN      A       192.168.122.1 ; Tirion
 ns2             IN      A       192.168.122.1 ; Valmar
 @               IN      A       192.168.122.1 ; Sirion
 
+zone "k43.com" {
+        type master;
+        notify yes;
+        allow-transfer { 192.168.122.1; }; // <---
+        also-notify { 192.168.122.1; };    // <---
+        file "/etc/bind/ns1.k43.com";
+};
+
+options {
+        directory "/var/cache/bind";
+        listen-on port 53 { localhost; 192.240.0.0/16; };
+        allow-query { localhost; 192.240.0.0/16; };
+        forwarders { 192.168.122.1; };  // <---
+};
+
+zone "k43.com" {
+        type slave;
+        masters { 192.168.122.1; }; // IP Tirion/master
+        file "/var/cache/bind/ns2.k58.com";
+};
+
+nameserver 192.168.122.1  # ns1/master
+nameserver 192.168.122.1  # ns2/slave
+nameserver 192.168.122.1
 
