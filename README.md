@@ -135,3 +135,29 @@ iface eth0 inet static
 
 Konfigurasi GNS
 
+4. 
+
+SOA-nya `ns1.k43.com`  
+NS-nya `ns1.k43.com` dan `ns2.k43.com`  
+A record `ns1.k43.com` dan `ns2.k43.com` menunjuk ke DNS server masing-masing  
+A record `k43.com` menunjuk ke **Sirion**
+
+```bash
+$TTL            3h
+
+@               IN      SOA     n1.k43.com.     admin.k43.net. (
+                        1       ; Serial
+                        3h      ; Refresh
+                        1h      ; Retry
+                        1w      ; Expire
+                        1h      ; Negative caching TTL
+                        )
+
+@               IN      NS      ns1.k43.com.
+@               IN      NS      ns2.k43.com.
+
+ns1             IN      A       192.168.122.1 ; Tirion
+ns2             IN      A       192.168.122.1 ; Valmar
+@               IN      A       192.168.122.1 ; Sirion
+
+
